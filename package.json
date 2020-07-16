@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "bootstrap:china": "lerna bootstrap --registry=https://registry.npm.taobao.org",
+    "lint": "lerna run lint"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "license": "MIT"
+}

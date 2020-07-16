@@ -1,0 +1,49 @@
+{
+  "name": "@whalue-design/colors",
+  "version": "0.0.1",
+  "description": "Color palettes calculator",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "tsc": "tsc",
+    "compile": "gulp",
+    "prepublishOnly": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whalue-design/whalue-design-colors.git"
+  },
+  "keywords": [
+    "colors",
+    "whalue",
+    "whalue-design"
+  ],
+  "author": "cnguu <www@cnguu.cn>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whalue-design/whalue-design-colors/issues"
+  },
+  "homepage": "https://github.com/whalue-design/whalue-design-colors",
+  "dependencies": {
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "@types/tinycolor2": "^1.4.2",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.6"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}
