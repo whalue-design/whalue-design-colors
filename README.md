@@ -6,7 +6,7 @@
 
 ## Packages
 
-- @whalule-design/colors [![NPM version](https://img.shields.io/npm/v/@whalule-design/colors.svg?style=flat)](https://npmjs.org/package/@whalule-design/colors) [![NPM downloads](http://img.shields.io/npm/dm/@whalule-design/icons-svg.svg?style=flat)](https://npmjs.org/package/@whalule-design/colors)
+- @whalue-design/colors [![NPM version](https://img.shields.io/npm/v/@whalue-design/colors.svg?style=flat)](https://npmjs.org/package/@whalue-design/colors) [![NPM downloads](http://img.shields.io/npm/dm/@whalue-design/icons-svg.svg?style=flat)](https://npmjs.org/package/@whalue-design/colors)
 
 ## License
 
