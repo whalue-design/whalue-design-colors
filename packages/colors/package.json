@@ -1,6 +1,6 @@
 {
   "name": "@whalue-design/colors",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Color palettes calculator",
   "main": "lib/index.js",
   "module": "lib/index.js",
