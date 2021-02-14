@@ -1,5 +1,5 @@
 module.exports = {
   publish: true,
-  yarn: true,
+  yarn: false,
   contents: "dist",
 };
