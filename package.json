@@ -20,7 +20,6 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "files": [
-    "lib",
     "dist/index.js",
     "dist/index.esm.js",
     "dist/src/index.d.ts",
@@ -52,9 +51,5 @@
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.1",
     "typescript": "^4.0.7"
-  },
-  "np": {
-    "yarn": false,
-    "contents": "dist"
   }
 }
