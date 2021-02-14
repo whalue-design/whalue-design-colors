@@ -1,4 +1,4 @@
-import tinycolor from 'tinycolor2';
+import { inputToRGB, rgbToHex, rgbToHsv } from "@ctrl/tinycolor";
 
 const hueStep = 2; // 色相阶梯
 const saturationStep = 0.16; // 饱和度阶梯，浅色部分
@@ -7,6 +7,7 @@ const brightnessStep1 = 0.05; // 亮度阶梯，浅色部分
 const brightnessStep2 = 0.15; // 亮度阶梯，深色部分
 const lightColorCount = 5; // 浅色数量，主色上
 const darkColorCount = 4; // 深色数量，主色下
+
 // 暗色主题颜色映射关系表
 const darkColorMap = [
   { index: 7, opacity: 0.15 },
@@ -27,13 +28,48 @@ interface HsvObject {
   v: number;
 }
 
+interface RgbObject {
+  r: number;
+  g: number;
+  b: number;
+}
+
+// 从 TinyColor.prototype.toHsv 移植的封装函数
+// 因为 `hsv.h * 360`，所以保留在这里
+function toHsv({ r, g, b }: RgbObject): HsvObject {
+  const hsv = rgbToHsv(r, g, b);
+  return { h: hsv.h * 360, s: hsv.s, v: hsv.v };
+}
+
+// 从 TinyColor.prototype.toHexString 移植的封装函数
+// 因为有前缀 "#"，所以留在这里
+function toHex({ r, g, b }: RgbObject): string {
+  return `#${rgbToHex(r, g, b, false)}`;
+}
+
+// 从 TinyColor.prototype.mix 移植过来的封装函数，不能树摇
+// 数额范围 [0, 1]
+// 假设 color1 & color2 没有 alpha，因为下面的 src 代码是这样做的
+function mix(rgb1: RgbObject, rgb2: RgbObject, amount: number): RgbObject {
+  const p = amount / 100;
+  return {
+    r: (rgb2.r - rgb1.r) * p + rgb1.r,
+    g: (rgb2.g - rgb1.g) * p + rgb1.g,
+    b: (rgb2.b - rgb1.b) * p + rgb1.b,
+  };
+}
+
 function getHue(hsv: HsvObject, i: number, light?: boolean): number {
   let hue: number;
   // 根据色相不同，色相转向不同
   if (Math.round(hsv.h) >= 60 && Math.round(hsv.h) <= 240) {
-    hue = light ? Math.round(hsv.h) - hueStep * i : Math.round(hsv.h) + hueStep * i;
+    hue = light
+      ? Math.round(hsv.h) - hueStep * i
+      : Math.round(hsv.h) + hueStep * i;
   } else {
-    hue = light ? Math.round(hsv.h) + hueStep * i : Math.round(hsv.h) - hueStep * i;
+    hue = light
+      ? Math.round(hsv.h) + hueStep * i
+      : Math.round(hsv.h) - hueStep * i;
   }
   if (hue < 0) {
     hue += 360;
@@ -44,7 +80,7 @@ function getHue(hsv: HsvObject, i: number, light?: boolean): number {
 }
 
 function getSaturation(hsv: HsvObject, i: number, light?: boolean): number {
-  // grey color don't change saturation
+  // 灰色不改变饱和度
   if (hsv.h === 0 && hsv.s === 0) {
     return hsv.s;
   }
@@ -84,37 +120,47 @@ function getValue(hsv: HsvObject, i: number, light?: boolean): number {
 }
 
 interface Opts {
-  theme?: 'dark' | 'default';
+  theme?: "dark" | "default";
   backgroundColor?: string;
 }
 
 export default function generate(color: string, opts: Opts = {}): string[] {
   const patterns: Array<string> = [];
-  const pColor = tinycolor(color);
+  const pColor = inputToRGB(color);
   for (let i = lightColorCount; i > 0; i -= 1) {
-    const hsv = pColor.toHsv();
-    const colorString: string = tinycolor({
-      h: getHue(hsv, i, true),
-      s: getSaturation(hsv, i, true),
-      v: getValue(hsv, i, true),
-    }).toHexString();
+    const hsv = toHsv(pColor);
+    const colorString: string = toHex(
+      inputToRGB({
+        h: getHue(hsv, i, true),
+        s: getSaturation(hsv, i, true),
+        v: getValue(hsv, i, true),
+      })
+    );
     patterns.push(colorString);
   }
-  patterns.push(pColor.toHexString());
+  patterns.push(toHex(pColor));
   for (let i = 1; i <= darkColorCount; i += 1) {
-    const hsv = pColor.toHsv();
-    const colorString: string = tinycolor({
-      h: getHue(hsv, i),
-      s: getSaturation(hsv, i),
-      v: getValue(hsv, i),
-    }).toHexString();
+    const hsv = toHsv(pColor);
+    const colorString: string = toHex(
+      inputToRGB({
+        h: getHue(hsv, i),
+        s: getSaturation(hsv, i),
+        v: getValue(hsv, i),
+      })
+    );
     patterns.push(colorString);
   }
 
-  // dark theme patterns
-  if (opts.theme === 'dark') {
+  // 暗黑风
+  if (opts.theme === "dark") {
     return darkColorMap.map(({ index, opacity }) => {
-      return tinycolor.mix(opts.backgroundColor || '#141414', patterns[index], opacity * 100).toHexString();
+      return toHex(
+        mix(
+          inputToRGB(opts.backgroundColor || "#141414"),
+          inputToRGB(patterns[index]),
+          opacity * 100
+        )
+      );
     });
   }
   return patterns;

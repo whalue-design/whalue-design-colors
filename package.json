@@ -1,12 +1,60 @@
 {
-  "private": true,
+  "name": "@whalue-design/colors",
+  "version": "1.0.0",
+  "description": "Color palettes calculator of Whalue Design",
+  "keywords": [
+    "colors",
+    "whalue",
+    "whalue-design"
+  ],
+  "author": "cnguu <www@cnguu.cn>",
+  "license": "MIT",
+  "homepage": "https://github.com/whalue-design/whalue-design-colors/",
+  "bugs": {
+    "url": "https://github.com/whalue-design/whalue-design-colors/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whalue-design/whalue-design-colors.git"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "files": [
+    "lib",
+    "dist/index.js",
+    "dist/index.esm.js",
+    "dist/src/index.d.ts",
+    "dist/src/generate.d.ts"
+  ],
+  "typings": "dist/src/index.d.ts",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "bootstrap:china": "lerna bootstrap --registry=https://registry.npm.taobao.org",
-    "lint": "lerna run lint"
+    "tsc": "tsc --noEmit",
+    "compile": "father build --esm --cjs",
+    "prepublishOnly": "npm run compile && np --no-cleanup --no-publish",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "prettier --write '{src,tests}/**/*.ts'",
+    "jest": "jest",
+    "test": "npm run tsc && npm run lint && npm run jest"
+  },
+  "dependencies": {
+    "@ctrl/tinycolor": "^3.4.0"
   },
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "@types/jest": "^26.0.20",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "father": "^2.30.1",
+    "jest": "^26.6.3",
+    "np": "^7.4.0",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.1",
+    "typescript": "^4.1.5"
   },
-  "license": "MIT"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
 }

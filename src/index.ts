@@ -1,4 +1,4 @@
-import generate from './generate';
+import generate from "./generate";
 
 export interface PalettesProps {
   [key: string]: string[] & { primary?: string };
@@ -7,19 +7,16 @@ export interface PalettesProps {
 const presetPrimaryColors: {
   [key: string]: string;
 } = {
-  red: '#F5222D',
-  volcano: '#FA541C',
-  orange: '#FA8C16',
-  gold: '#FAAD14',
-  yellow: '#FADB14',
-  lime: '#A0D911',
-  green: '#52C41A',
-  cyan: '#13C2C2',
-  blue: '#1890FF',
-  geekblue: '#2F54EB',
-  purple: '#722ED1',
-  magenta: '#EB2F96',
-  grey: '#666666',
+  red: "#f44336",
+  orange: "#ff9800",
+  yellow: "#ffc107",
+  lime: "#cddc39",
+  green: "#4caf50",
+  cyan: "#00bcd4",
+  blue: "#2196f3",
+  purple: "#9c27b0",
+  pink: "#e91e63",
+  grey: "#9e9e9e",
 };
 
 const presetPalettes: PalettesProps = {};
@@ -31,24 +28,21 @@ Object.keys(presetPrimaryColors).forEach((key): void => {
 
   // dark presetPalettes
   presetDarkPalettes[key] = generate(presetPrimaryColors[key], {
-    theme: 'dark',
-    backgroundColor: '#141414',
+    theme: "dark",
+    backgroundColor: "#141414",
   });
   presetDarkPalettes[key].primary = presetDarkPalettes[key][5];
 });
 
 const red = presetPalettes.red;
-const volcano = presetPalettes.volcano;
-const gold = presetPalettes.gold;
 const orange = presetPalettes.orange;
 const yellow = presetPalettes.yellow;
 const lime = presetPalettes.lime;
 const green = presetPalettes.green;
 const cyan = presetPalettes.cyan;
 const blue = presetPalettes.blue;
-const geekblue = presetPalettes.geekblue;
 const purple = presetPalettes.purple;
-const magenta = presetPalettes.magenta;
+const pink = presetPalettes.pink;
 const grey = presetPalettes.grey;
 
 export {
@@ -57,16 +51,13 @@ export {
   presetDarkPalettes,
   presetPrimaryColors,
   red,
-  volcano,
   orange,
-  gold,
   yellow,
   lime,
   green,
   cyan,
   blue,
-  geekblue,
   purple,
-  magenta,
+  pink,
   grey,
 };
