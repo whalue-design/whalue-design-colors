@@ -34,6 +34,7 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "prettier --write '{src,tests}/**/*.ts'",
     "jest": "jest",
+    "coverage": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "test": "npm run tsc && npm run lint && npm run jest"
   },
   "dependencies": {
@@ -43,6 +44,7 @@
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.14.2",
     "@typescript-eslint/parser": "^4.14.2",
+    "coveralls": "^3.1.0",
     "eslint": "^7.20.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.3.1",
