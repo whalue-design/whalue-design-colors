@@ -1,6 +1,6 @@
 {
   "name": "@whalue-design/colors",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Color palettes calculator of Whalue Design",
   "keywords": [
     "colors",
@@ -30,7 +30,7 @@
   "scripts": {
     "tsc": "tsc --noEmit",
     "compile": "father-build --esm --cjs",
-    "prepublishOnly": "npm run compile && np --no-cleanup --no-publish",
+    "np": "npm run compile && np",
     "lint": "eslint src --ext .ts",
     "lint:fix": "prettier --write '{src,tests}/**/*.ts'",
     "jest": "jest",
